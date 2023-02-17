@@ -1,6 +1,24 @@
-import '@/styles/globals.css'
-import type { AppProps } from 'next/app'
+import "@/styles/globals.scss";
+import type { AppProps } from "next/app";
+import { ComponentType, ReactNode } from "react";
 
-export default function App({ Component, pageProps }: AppProps) {
-  return <Component {...pageProps} />
+type AppPropsWithLayout = AppProps & {
+  Component: AppProps["Component"] & {
+    pageLayout?: ComponentType<{ children?: ReactNode }>;
+  };
+};
+
+function App({ Component, pageProps }: AppPropsWithLayout) {
+  let comp = Component.pageLayout ? (
+    <>
+      {" "}
+      <Component.pageLayout />
+      <Component {...pageProps} />
+    </>
+  ) : (
+    <Component {...pageProps} />
+  );
+  return comp;
+ 
 }
+export default App;

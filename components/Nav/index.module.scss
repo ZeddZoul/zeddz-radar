@@ -1,0 +1,153 @@
+@import "/styles/variables.scss";
+.Header {
+  padding: $base-padding;
+  background-color: $color-secondary-light;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-shadow: 0px 0px 1px black;
+  > p {
+    display: none;
+    @media (max-width: 900px) {
+      display: block;
+    }
+  }
+  .static {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    justify-content: space-between;
+    width: max-content;
+    .search {
+      @media (max-width: 900px) {
+        display: none;
+      }
+      position: relative;
+      input {
+        width: 100%;
+        min-width: 210px;
+        height: 40px;
+        border-radius: 5px;
+        border: 2px solid $color-primary;
+        padding-inline: 5px 45px;
+        color: $color-primary-light;
+      }
+      button {
+        position: absolute;
+        top: 2px;
+        right: 2px;
+        font-size: large;
+        font-family: $text;
+        font-weight: 900;
+        width: 43px;
+        height: 36px;
+        color: white;
+        background-color: $color-primary;
+        cursor: pointer;
+      }
+    }
+    .Logo {
+      margin: $element-padding;
+      a {
+        display: flex;
+        align-items: center;
+        h1 {
+          font-size: $font-normal + 3px;
+          color: $color-primary;
+        }
+      }
+    }
+  }
+
+  nav {
+    @media (max-width: 900px) {
+      display: none;
+    }
+    display: flex;
+    gap: 25px;
+
+    > li,
+    > a {
+      cursor: pointer;
+      position: relative;
+      padding: 5px;
+    }
+    a {
+      color: $color-primary;
+       transition: all 0.25s linear;
+      &::before {
+        content: " < ";
+        color: $color-primary;
+        position: absolute;
+        left: -10px;
+        opacity: 0;
+        scale: 0;
+        transition: all 0.25s linear;
+      }
+      &::after {
+        content: " > ";
+        color: $color-primary;
+        position: absolute;
+        right: -10px;
+        opacity: 0;
+        scale: 0;
+           transition: all 0.25s linear;
+      }
+
+         
+        &:hover::before,  &:hover::after{
+          opacity: 1;
+          scale: 1;
+        }
+    }
+    li > ul {
+      display: none;
+    }
+  }
+
+  .showMenu {
+    @media (max-width: 950px) {
+      display: flex;
+      flex-direction: column;
+      padding: 2% 8%;
+      height: 90vh;
+      width: 100%;
+      position: fixed;
+      top: 50%;
+      gap: 5px;
+      left: 50%;
+      background-color: #302e2e;
+      // color: $black;
+      transform: translate(-50%, -40%);
+      justify-content: unset;
+      align-items: unset;
+      animation: all 0.25s linear;
+      @keyframes all {
+        from {
+          left: 100%;
+          opacity: 0.5;
+        }
+        to {
+          left: 50%;
+          opacity: 1;
+        }
+      }
+      a {
+        padding: 10px;
+        &.btn,
+        &.login,
+        &.signup {
+          font-size: 15px;
+          padding: 10px;
+          outline: none;
+          background: transparent;
+        }
+        &:hover {
+          background-color: #505352;
+          transition: background-color 0.15s linear;
+          border-radius: 4px;
+        }
+      }
+    }
+  }
+}

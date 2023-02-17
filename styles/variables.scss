@@ -1,0 +1,27 @@
+@import url('https://fonts.googleapis.com/css2?family=Carter+One&family=Merienda:wght@300;400;500;600;700;800;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cabin:wght@400;500;600;700&display=swap');
+
+// fonts
+$text: 'Carter One', cursive;
+$text-description: 'Cabin', sans-serif;
+
+// spacing
+$base-padding: 0% 6%;
+$inline-padding: 6%;
+$block-padding: 6%;
+$element-padding: 8px 16px;
+$element-margin: 8px 16px;
+
+// color pallete
+$color-primary: #000000;
+$color-primary-light: lighten($color-primary, 50 );
+$color-secondary: #ffffff63;
+$color-secondary-light: darken($color-secondary, 20 );
+$color-action__btn: darken(#90CEA1, 20);
+
+// font-sizes
+$font-small: 14px;
+$font-normal:18px;
+$font-medium:24px;
+$font-large:30px;
+$font-larger:34px;

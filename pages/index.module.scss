@@ -1,0 +1,29 @@
+@import "/styles/variables.scss";
+.main{
+  display: flex;
+  gap: 20px;
+  justify-content:space-evenly;
+  align-items: center;
+  flex-wrap: wrap;
+  background-color: lighten($color: $color-primary, $amount: 10) ;
+  width: 100%;
+@media (max-width:500px) {
+  gap: 10px;
+}
+  .card{
+    color: white;
+    background-color:lighten($color: $color-primary, $amount: 15) ;
+    padding: $element-padding;
+    width: 232px;
+    border-radius: 4px;
+    @media (max-width:500px) {
+  width: 220px;
+}
+    img{
+      margin-bottom: 20px;
+      @media (max-width:500px) {
+  width: 190px;
+}
+    }
+  }
+}

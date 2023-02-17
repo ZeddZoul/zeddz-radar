@@ -1,0 +1,41 @@
+@import "/styles/variables.scss";
+
+// correcting settings
+html{
+  font-size: 62.5%;
+}
+*{
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  text-decoration: none;
+  list-style: none;
+  font-family:$text;
+}
+// Typography
+small{
+  font-size: $font-small;
+  font-family: $text-description;
+}
+p, a, li{
+  font-size: $font-normal ;
+
+}
+a, li{
+  font-family: $text;
+}
+p{
+    font-family: $text-description;
+}
+h3{
+   font-size: $font-medium;
+   font-family:$text;
+}
+h2{
+  font-size: $font-large;
+   font-family:$text;
+}
+h1{
+  font-size: $font-larger;
+   font-family:$text;
+}
