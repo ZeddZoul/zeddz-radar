@@ -1,6 +1,7 @@
 @import "/styles/variables.scss";
 .Movie{
   background-color: $color-primary;
+
   padding: 3.5% 8%;
   nav a{
     color: $color-secondary;
@@ -11,11 +12,22 @@
   .movieDetails{
     display: flex;
     justify-content: center;
+    @media (max-width:850px) {
+    flex-wrap: wrap;
+    }
+    
     gap: 50px;
+      width: 100%;
     >span{
       display: flex;
       flex-direction: column;
       gap: 10px;
+      img{
+        @media (max-width:850px) {
+          height: 240px;
+          width: 200px;
+        }
+      }
       button{
         height: 40px;
         background-color: $color-action__btn;
@@ -38,6 +50,7 @@
     }
   }
   .description{
+    min-width: 350px;
     >span{
       color:$color-secondary;
       display: flex;
