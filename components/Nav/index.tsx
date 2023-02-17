@@ -26,7 +26,9 @@ const Nav: FC = () => {
           <button> &rarr; </button>
         </span>
       </div>
-      <nav className={s.nav}>
+      <nav ref={nav} className={s.nav}>
+        <Link href="/">Trending</Link>
+        <Link href="/">Tv shows</Link>
         <Link href="/">Trending</Link>
         <li>
           {" "}

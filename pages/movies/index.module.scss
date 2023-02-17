@@ -12,6 +12,7 @@
   .movieDetails{
     display: flex;
     justify-content: center;
+    min-height: 80vh;
     @media (max-width:850px) {
     flex-wrap: wrap;
     }
@@ -51,6 +52,11 @@
   }
   .description{
     min-width: 350px;
+    h1{
+        @media (max-width:850px) {
+         font-size: $font-medium
+        }
+    }
     >span{
       color:$color-secondary;
       display: flex;
