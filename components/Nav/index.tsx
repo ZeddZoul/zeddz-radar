@@ -2,7 +2,7 @@ import s from "./index.module.scss";
 import Link from "next/link";
 import Image from "next/image";
 import { FC, useRef, useState } from "react";
-import logo from "/public/logo.png";
+import logo from "/public/favicon2.png";
 
 const Nav: FC = () => {
   const nav = useRef<HTMLElement>(null);
@@ -28,8 +28,6 @@ const Nav: FC = () => {
       </div>
       <nav className={s.nav}>
         <Link href="/">Trending</Link>
-        <Link href="/movies">Movies</Link>
-        <Link href="/tvshows">TV Shows</Link>
         <li>
           {" "}
           {filter} v

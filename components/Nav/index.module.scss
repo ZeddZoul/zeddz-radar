@@ -1,13 +1,19 @@
 @import "/styles/variables.scss";
 .Header {
   padding: $base-padding;
-  background-color: $color-secondary-light;
+  background-color: $color-secondary;
   display: flex;
   align-items: center;
   justify-content: space-between;
   box-shadow: 0px 0px 1px black;
+  background-color: $color-primary-light;
+  position: sticky;
+  top: 0;
+  left: 0;
   > p {
     display: none;
+    color: $color-secondary;
+    font-size: 30px;
     @media (max-width: 900px) {
       display: block;
     }
@@ -28,32 +34,43 @@
         min-width: 210px;
         height: 40px;
         border-radius: 5px;
-        border: 2px solid $color-primary;
+        border: 1px solid $color-primary;
+        outline: 2px solid $color-primary;
         padding-inline: 5px 45px;
         color: $color-primary-light;
       }
       button {
         position: absolute;
-        top: 2px;
-        right: 2px;
+        top: 1px;
+        right: 0px;
         font-size: large;
         font-family: $text;
         font-weight: 900;
         width: 43px;
-        height: 36px;
-        color: white;
+        height: 38px;
+        color: $color-secondary;
         background-color: $color-primary;
+        border: none;
         cursor: pointer;
       }
     }
     .Logo {
       margin: $element-padding;
+      img {
+        @media (max-width: 500px) {
+          height: 50px;
+          width: 35px;
+        }
+      }
       a {
         display: flex;
         align-items: center;
         h1 {
           font-size: $font-normal + 3px;
-          color: $color-primary;
+          color: $color-secondary;
+          @media (max-width: 500px) {
+            font-size: $font-small + 3px;
+          }
         }
       }
     }
@@ -71,13 +88,15 @@
       cursor: pointer;
       position: relative;
       padding: 5px;
+      color: $color-secondary;
+      font-weight: 400;
     }
     a {
-      color: $color-primary;
-       transition: all 0.25s linear;
+      color: $color-secondary;
+      transition: all 0.25s linear;
       &::before {
         content: " < ";
-        color: $color-primary;
+        color: $color-secondary;
         position: absolute;
         left: -10px;
         opacity: 0;
@@ -86,19 +105,19 @@
       }
       &::after {
         content: " > ";
-        color: $color-primary;
+        color: $color-secondary;
         position: absolute;
         right: -10px;
         opacity: 0;
         scale: 0;
-           transition: all 0.25s linear;
+        transition: all 0.25s linear;
       }
 
-         
-        &:hover::before,  &:hover::after{
-          opacity: 1;
-          scale: 1;
-        }
+      &:hover::before,
+      &:hover::after {
+        opacity: 1;
+        scale: 1;
+      }
     }
     li > ul {
       display: none;

@@ -15,7 +15,6 @@ interface Movies {
 }[]
 };
 export default function Home({ moviesList }: Movies) {
-  console.log(moviesList[8]);
   
   return (
     <>
@@ -48,9 +47,7 @@ export default function Home({ moviesList }: Movies) {
                     width={200}
                     alt=""
                   />
-                  <p>
-                    Title: {title || name} {index}
-                  </p>
+                  <p>Title: {title || name}</p>
                   <small>Release date: {release_date || first_air_date}</small>
                 </div>
               </Link>
