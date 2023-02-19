@@ -18,7 +18,9 @@ interface Movies {
   }[];
   error: string
 }
-
+interface Movie {
+genre: string[]
+}
 export const getServerSideProps: GetServerSideProps = async ({ query }) => {
   const { search } = query;
   try {
@@ -45,6 +47,9 @@ export const getServerSideProps: GetServerSideProps = async ({ query }) => {
 };
 
 export default function Search({ moviesList, error }: Movies) {
+  const filterByGenre = (obj:Movie) => {
+    obj.genre 
+  }
   return (
     <>
       <Head>
@@ -77,7 +82,7 @@ export default function Search({ moviesList, error }: Movies) {
                     alt=""
                   />
                   <p>
-                    Title: {title || name} {index}
+                    Title: {title || name}
                   </p>
                   <small>Release date: {release_date || first_air_date}</small>
                 </div>

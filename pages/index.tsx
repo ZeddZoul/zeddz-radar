@@ -4,20 +4,30 @@ import Head from "next/head";
 import Image from "next/image";
 import Link from "next/link";
 import s from "./index.module.scss";
-import { useState } from "react";
+import { useMemo, useState } from "react";
 interface Movies {
- moviesList: {
-   id: number,
-   title: string,
-   release_date: string,
-   first_air_date: string,
-   poster_path: string,
-  name: string
- }[]
-  error: string
-};
+  moviesList: {
+    id: number;
+    title: string;
+    release_date: string;
+    first_air_date: string;
+    poster_path: string;
+    name: string;
+    genre: string[];
+  }[];
+  error: string;
+}
 export default function Home({ moviesList, error }: Movies) {
-  const [myMoviesList, setMyMoviesList] =useState(moviesList)
+  const [myMoviesList, setMyMoviesList] = useState(moviesList);
+  const [filter, setFilter] = useState<string>("none");
+  if (filter === "none") {
+    moviesList = moviesList;
+  } else if (filter == "Horror") {
+    moviesList = useMemo(
+      moviesList?.filter((movie) => movie.genre?.includes("horror"), moviesList)
+    );
+    setMyMoviesList(moviesList);
+  }
   return (
     <>
       <Head>
@@ -34,8 +44,33 @@ export default function Home({ moviesList, error }: Movies) {
         <link rel="icon" href="/favicon.png" />
       </Head>
       <>
+        {error && <p className={s.error}>{error}</p>}
+        {/* Render filters if there's no error when fetching movies */}
+        {error || (
+          <div className={s.filter}>
+            <p> Filter: {filter}</p>
+            <hr />
+            <ul>
+              <li>By Genre:</li>
+              <ul>
+                <p onClick={() => setFilter("Horror")}>Horror</p>
+                <p onClick={() => setFilter("Mystery")}>Mystery</p>
+                <p onClick={() => setFilter("Comedy")}>Comedy</p>
+                <p onClick={() => setFilter("Action")}>Action</p>
+                <p onClick={() => setFilter("Romance")}>Romance</p>
+              </ul>
+            </ul>
+            <ul>
+              <li>By Release date:</li>
+              <ul>
+                <p onClick={() => setFilter("this week")}>This week</p>
+                <p onClick={() => setFilter("this month")}>Last month</p>
+                <p onClick={() => setFilter("this year")}>Last year</p>
+              </ul>
+            </ul>
+          </div>
+        )}
         <div className={s.main}>
-          {error && <p className={s.error}>{error}</p>}
           {myMoviesList?.map(
             (
               { id, name, title, release_date, poster_path, first_air_date },
@@ -59,10 +94,8 @@ export default function Home({ moviesList, error }: Movies) {
       </>
     </>
   );
-
-
 }
-Home.pageLayout = Nav
+Home.pageLayout = Nav;
 export const getServerSideProps: GetServerSideProps = async () => {
   try {
     const fetcher = await fetch(
@@ -75,9 +108,7 @@ export const getServerSideProps: GetServerSideProps = async () => {
         moviesList,
       },
     };
-
-}
-   catch (error: any) {
+  } catch (error: any) {
     console.log(error);
 
     return {

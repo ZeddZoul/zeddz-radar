@@ -6,7 +6,6 @@ import logo from "/public/favicon2.png";
 import { useRouter } from "next/router";
 const Nav: FC = () => {
   const router = useRouter()
-  const [filter, setFilter] = useState<string>("Filter");
   const [inputValue, setInputValue] = useState<string>("");
 
 
@@ -34,15 +33,8 @@ const Nav: FC = () => {
       <nav className={s.nav}>
         <Link href="/">Trending</Link>
         <Link href="/">Tv shows</Link>
-        <Link href="/">Trending</Link>
-        <li>
-          {" "}
-          {filter} v
-          <ul>
-            <li onClick={() => setFilter("Genre")}>Genre</li>
-            <li onClick={() => setFilter("Release date")}>Release date</li>
-          </ul>
-        </li>
+        <Link href="/">Anime</Link>
+       
       </nav>
       <p>&#9776;</p>
     </header>
