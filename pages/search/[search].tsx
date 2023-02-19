@@ -4,6 +4,7 @@ import Head from "next/head";
 import Image from "next/image";
 import Link from "next/link";
 import s from "./index.module.scss";
+import { useRouter } from "next/router";
 import { useState } from "react";
 interface Movies {
  moviesList: {
@@ -15,8 +16,25 @@ interface Movies {
   name: string
 }[]
 };
-export default function Home({ moviesList }: Movies) {
-  const [myMoviesList, setMyMoviesList] =useState(moviesList)
+
+export const getServerSideProps: GetServerSideProps = async ({query}) => {
+  const {search} = query
+  
+  const fetcher = await fetch(
+    `https://api.themoviedb.org/3/search/movie?api_key=e1c3af0d54d0c6b4b9d257363e6e136e&language=en-US&query=${search}&include_adult=false`
+  );
+  const data = await fetcher.json();
+  const moviesList = data.results  
+  return {
+    props: {
+      moviesList,
+    },
+  };
+};
+
+
+export default function Search({ moviesList }: Movies) {
+  const [myMoviesList, setMyMoviesList] = useState(moviesList);
   return (
     <>
       <Head>
@@ -33,6 +51,7 @@ export default function Home({ moviesList }: Movies) {
         <link rel="icon" href="/favicon.png" />
       </Head>
       <>
+        {/* <Nav /> */}
         <div className={s.main}>
           {myMoviesList.map(
             (
@@ -47,7 +66,7 @@ export default function Home({ moviesList }: Movies) {
                     width={200}
                     alt=""
                   />
-                  <p>Title: {title || name}</p>
+                  <p>Title: {title || name} {index}</p>
                   <small>Release date: {release_date || first_air_date}</small>
                 </div>
               </Link>
@@ -57,19 +76,5 @@ export default function Home({ moviesList }: Movies) {
       </>
     </>
   );
-
-
 }
-Home.pageLayout = Nav
-export const getServerSideProps: GetServerSideProps = async () => {
-  const fetcher = await fetch(
-    "https://api.themoviedb.org/3/trending/all/day?api_key=e1c3af0d54d0c6b4b9d257363e6e136e"
-  );
-  const data = await fetcher.json();
-  const moviesList = data.results  
-  return {
-    props: {
-      moviesList,
-    },
-  };
-};
+Search.pageLayout = Nav

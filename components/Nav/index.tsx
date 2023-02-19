@@ -3,16 +3,15 @@ import Link from "next/link";
 import Image from "next/image";
 import { FC, useRef, useState } from "react";
 import logo from "/public/favicon2.png";
-
+import { useRouter } from "next/router";
 const Nav: FC = () => {
-  const nav = useRef<HTMLElement>(null);
+  const router = useRouter()
   const [filter, setFilter] = useState<string>("Filter");
-  const el = nav.current;
-  const menu = () => {
-    el?.classList.toggle(`${s.showMenu}`);
-  };
+  const [inputValue, setInputValue] = useState<string>("");
+
+
   return (
-    <header ref={nav} className={s.Header}>
+    <header className={s.Header}>
       <div className={s.static}>
         <div className={s.Logo}>
           <Link href="/">
@@ -22,11 +21,17 @@ const Nav: FC = () => {
         </div>
 
         <span className={s.search}>
-          <input type="search" placeholder="Search" />
-          <button> &rarr; </button>
+          <input
+            onChange={(e) => setInputValue(e.target.value)}
+            type="search"
+            value={inputValue}
+            placeholder="Search"
+          />
+          <button onClick={() => router.push(`/search/${inputValue}`)}> &rarr; </button>
+          <div className={s.search_results}>{}</div>
         </span>
       </div>
-      <nav ref={nav} className={s.nav}>
+      <nav className={s.nav}>
         <Link href="/">Trending</Link>
         <Link href="/">Tv shows</Link>
         <Link href="/">Trending</Link>

@@ -1,7 +1,7 @@
 import "@/styles/globals.scss";
 import type { AppProps } from "next/app";
 import { ComponentType, ReactNode } from "react";
-
+import { useRouter } from "next/router";
 type AppPropsWithLayout = AppProps & {
   Component: AppProps["Component"] & {
     pageLayout?: ComponentType<{ children?: ReactNode }>;
@@ -9,11 +9,12 @@ type AppPropsWithLayout = AppProps & {
 };
 
 function App({ Component, pageProps }: AppPropsWithLayout) {
+  const router = useRouter()
   let comp = Component.pageLayout ? (
     <>
       {" "}
       <Component.pageLayout />
-      <Component {...pageProps} />
+      <Component key={router.asPath} {...pageProps} />
     </>
   ) : (
     <Component {...pageProps} />
@@ -22,3 +23,6 @@ function App({ Component, pageProps }: AppPropsWithLayout) {
  
 }
 export default App;
+
+
+
