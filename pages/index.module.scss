@@ -1,36 +1,98 @@
 @import "/styles/variables.scss";
-.main{
+.main {
   display: flex;
   gap: 20px;
-  justify-content:space-evenly;
+  justify-content: space-evenly;
   align-items: center;
   flex-wrap: wrap;
   padding: 2%;
-  background-color:  $color-primary ;
+  background-color: $color-primary;
   width: 100%;
-@media (max-width:500px) {
-  gap: 10px;
-}
-  .card{
+  @media (max-width: 500px) {
+    gap: 10px;
+  }
+  .card {
     color: white;
-    background-color:$color-primary-light;
+    background-color: $color-primary-light;
     padding: $element-padding;
     width: 232px;
     border-radius: 4px;
-    @media (max-width:500px) {
-  width: 220px;
-}
-    img{
+    @media (max-width: 500px) {
+      width: 220px;
+    }
+    img {
       margin-bottom: 20px;
-      @media (max-width:500px) {
-  width: 190px;
-}
+      @media (max-width: 500px) {
+        width: 190px;
+      }
     }
   }
 }
-.error{
+.error {
   height: 85vh;
   translate: 0% 40%;
-   color:$color-secondary;
-   text-align: center;
+  color: $color-secondary;
+  text-align: center;
+}
+.filter__container {
+  background-color: $color-primary;
+  .filterr {
+    padding:4% 10%;
+    >p{
+      color: $color-secondary;
+      display: flex;
+     gap: 25px;
+     align-items: center;
+    }
+
+    >ul{
+      display: none;
+      li{
+        width: max-content;
+         color: $color-secondary;
+      }
+    }
+    &:hover > ul{
+      display: block;
+    }
+    width:max-content;
+    input{
+      cursor: pointer;
+      position: relative;
+      top: -25px;
+      height: 25px;
+      width: 100px;
+      opacity: 0;
+    }
+   ul{
+    color: $color-secondary;
+     ul{
+      display: none;
+      
+    }
+    ul+ul li{
+       
+      position: relative;
+      top: -105px;
+      left: 0;
+    
+    }
+    input:checked + ul{
+      display: block;
+      position: relative;
+      right: -170px;
+      top: -52px;
+     
+      }
+       p{
+        padding: 5px 10px;
+          border-radius: 4px;
+          &:hover{
+          background-color: $color-primary-light;
+          width: max-content;
+          cursor: pointer;
+          }
+    }
+   }
+  }
 }

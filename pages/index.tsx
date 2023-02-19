@@ -20,14 +20,12 @@ interface Movies {
 export default function Home({ moviesList, error }: Movies) {
   const [myMoviesList, setMyMoviesList] = useState(moviesList);
   const [filter, setFilter] = useState<string>("none");
-  // if (filter === "none") {
-  //   moviesList = moviesList;
-  // } else if (filter == "Horror") {
-  //   moviesList = useMemo(
-  //     moviesList?.filter((movie) => movie.genre?.includes("horror"), moviesList)
-  //   );
-  //   setMyMoviesList(moviesList);
-  // }
+  if (filter === "Comedy") {
+    let newList: any = moviesList?.filter((movie) => movie.genre?.includes("comedy"))
+    setMyMoviesList(newList);
+  } else if (filter == "Horror") {
+    
+  }
   return (
     <>
       <Head>
@@ -47,27 +45,34 @@ export default function Home({ moviesList, error }: Movies) {
         {error && <p className={s.error}>{error}</p>}
         {/* Render filters if there's no error when fetching movies */}
         {error || (
-          <div className={s.filter}>
-            <p> Filter: {filter}</p>
-            <hr />
-            <ul>
-              <li>By Genre:</li>
+          <div className={s.filter__container}>
+            <div className={s.filterr}>
+              <p>
+                {" "}
+                <span>Filter:</span>
+                <small> {filter}</small>
+              </p>
               <ul>
-                <p onClick={() => setFilter("Horror")}>Horror</p>
-                <p onClick={() => setFilter("Mystery")}>Mystery</p>
-                <p onClick={() => setFilter("Comedy")}>Comedy</p>
-                <p onClick={() => setFilter("Action")}>Action</p>
-                <p onClick={() => setFilter("Romance")}>Romance</p>
+                <li>By Genre:</li>
+                <input type="checkbox" />
+                <ul>
+                  <p onClick={() => setFilter("Horror")}>Horror</p>
+                  <p onClick={() => setFilter("Mystery")}>Mystery</p>
+                  <p onClick={() => setFilter("Comedy")}>Comedy</p>
+                  <p onClick={() => setFilter("Action")}>Action</p>
+                  <p onClick={() => setFilter("Romance")}>Romance</p>
+                </ul>
               </ul>
-            </ul>
-            <ul>
-              <li>By Release date:</li>
               <ul>
-                <p onClick={() => setFilter("this week")}>This week</p>
-                <p onClick={() => setFilter("this month")}>Last month</p>
-                <p onClick={() => setFilter("this year")}>Last year</p>
+                <li>By Release date:</li>
+                <input type="checkbox" />
+                <ul className={s.sec}>
+                  <p onClick={() => setFilter("this week")}>This week</p>
+                  <p onClick={() => setFilter("this month")}>This month</p>
+                  <p onClick={() => setFilter("this year")}>This year</p>
+                </ul>
               </ul>
-            </ul>
+            </div>
           </div>
         )}
         <div className={s.main}>
