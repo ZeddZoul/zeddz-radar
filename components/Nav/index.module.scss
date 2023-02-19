@@ -14,9 +14,10 @@
   > p {
     display: none;
     color: $color-secondary;
-    font-size: 30px;
+    font-size: 25px;
     @media (max-width: 900px) {
       display: block;
+      cursor: pointer;
     }
   }
   .static {
@@ -27,23 +28,23 @@
     width: max-content;
     .search {
       @media (max-width: 900px) {
-        display: none;
+        // display: none;
       }
       position: relative;
       input {
         width: 100%;
         min-width: 210px;
         height: 40px;
-        border-radius: 5px;
-        border: 1px solid $color-primary;
-        outline: 2px solid $color-primary;
+        border-radius: 7px;
+        border: 3px solid $color-primary;
+        
         padding-inline: 5px 45px;
         color: $color-primary-light;
       }
       button {
         position: absolute;
         top: 1px;
-        right: 0px;
+        right: 2px;
         font-size: large;
         font-family: $text;
         font-weight: 900;
@@ -51,6 +52,8 @@
         height: 38px;
         color: $color-secondary;
         background-color: $color-primary;
+        border-bottom-right-radius: 7px;
+        border-top-right-radius: 7px;
         border: none;
         cursor: pointer;
       }
