@@ -84,8 +84,8 @@ const Movie = () => {
               <p>Overview:</p>
             </strong>
             <p>{movie?.overview}</p>
-            <p><span>Genre:</span> {movie?.genres.map(genre => <small key={genre.id}>{genre.name }, </small>)}etc</p>
-            <p><span>Language(s):</span> {movie?.spoken_languages.map(lang => <small key={lang.english_name}>{lang.english_name } </small>)}</p>
+            <p><span>Genre:</span> {movie?.genres?.map(genre => <small key={genre.id}>{genre.name }, </small>)}etc</p>
+            <p><span>Language(s):</span> {movie?.spoken_languages?.map(lang => <small key={lang.english_name}>{lang.english_name } </small>)}</p>
           
           </div>
         </div>
