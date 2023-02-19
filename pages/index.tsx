@@ -20,14 +20,14 @@ interface Movies {
 export default function Home({ moviesList, error }: Movies) {
   const [myMoviesList, setMyMoviesList] = useState(moviesList);
   const [filter, setFilter] = useState<string>("none");
-  if (filter === "none") {
-    moviesList = moviesList;
-  } else if (filter == "Horror") {
-    moviesList = useMemo(
-      moviesList?.filter((movie) => movie.genre?.includes("horror"), moviesList)
-    );
-    setMyMoviesList(moviesList);
-  }
+  // if (filter === "none") {
+  //   moviesList = moviesList;
+  // } else if (filter == "Horror") {
+  //   moviesList = useMemo(
+  //     moviesList?.filter((movie) => movie.genre?.includes("horror"), moviesList)
+  //   );
+  //   setMyMoviesList(moviesList);
+  // }
   return (
     <>
       <Head>
