@@ -13,19 +13,15 @@ interface Movies {
     first_air_date: string;
     poster_path: string;
     name: string;
-    genre: string[];
+    genres: {
+      id: number;
+      name: string;
+    }[];
   }[];
   error: string;
 }
 export default function Home({ moviesList, error }: Movies) {
-  const [myMoviesList, setMyMoviesList] = useState(moviesList);
-  const [filter, setFilter] = useState<string>("none");
-  if (filter === "Comedy") {
-    let newList: any = moviesList?.filter((movie) => movie.genre?.includes("comedy"))
-    setMyMoviesList(newList);
-  } else if (filter == "Horror") {
-    
-  }
+  const [filter, setFilter] = useState<string>("");
   return (
     <>
       <Head>
@@ -56,11 +52,11 @@ export default function Home({ moviesList, error }: Movies) {
                 <li>By Genre:</li>
                 <input type="checkbox" />
                 <ul>
-                  <p onClick={() => setFilter("Horror")}>Horror</p>
+                  <p onClick={() => setFilter("Thriller")}>Thriller</p>
                   <p onClick={() => setFilter("Mystery")}>Mystery</p>
                   <p onClick={() => setFilter("Comedy")}>Comedy</p>
                   <p onClick={() => setFilter("Action")}>Action</p>
-                  <p onClick={() => setFilter("Romance")}>Romance</p>
+                  <p onClick={() => setFilter("Crime")}>Crime</p>
                 </ul>
               </ul>
               <ul>
@@ -76,7 +72,7 @@ export default function Home({ moviesList, error }: Movies) {
           </div>
         )}
         <div className={s.main}>
-          {myMoviesList?.map(
+          {moviesList?.map(
             (
               { id, name, title, release_date, poster_path, first_air_date },
               index
