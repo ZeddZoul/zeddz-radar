@@ -67,7 +67,7 @@ const Movie = () => {
         <div className={s.movieDetails}>
           <span>
             <Image
-              src={`https://image.tmdb.org/t/p/original/${movie?.backdrop_path}`}
+              src={`https://image.tmdb.org/t/p/original/${movie?.poster_path}`}
               height={400}
               width={300}
               alt=""
