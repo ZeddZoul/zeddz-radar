@@ -24,6 +24,7 @@
       flex-direction: column;
       gap: 10px;
       img{
+        position: relative;
         @media (max-width:850px) {
           height: 240px;
           width: 200px;
@@ -77,4 +78,10 @@
     }
   }
   }
+}
+.error{
+  height: 85vh;
+  translate: 0% 40%;
+   color:$color-secondary;
+   text-align: center;
 }

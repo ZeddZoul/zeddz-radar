@@ -13,9 +13,10 @@ interface Movies {
    first_air_date: string,
    poster_path: string,
   name: string
-}[]
+ }[]
+  error: string
 };
-export default function Home({ moviesList }: Movies) {
+export default function Home({ moviesList, error }: Movies) {
   const [myMoviesList, setMyMoviesList] =useState(moviesList)
   return (
     <>
@@ -34,7 +35,8 @@ export default function Home({ moviesList }: Movies) {
       </Head>
       <>
         <div className={s.main}>
-          {myMoviesList.map(
+          {error && <p className={s.error}>{error}</p>}
+          {myMoviesList?.map(
             (
               { id, name, title, release_date, poster_path, first_air_date },
               index
@@ -62,14 +64,27 @@ export default function Home({ moviesList }: Movies) {
 }
 Home.pageLayout = Nav
 export const getServerSideProps: GetServerSideProps = async () => {
-  const fetcher = await fetch(
-    "https://api.themoviedb.org/3/trending/all/day?api_key=e1c3af0d54d0c6b4b9d257363e6e136e"
-  );
-  const data = await fetcher.json();
-  const moviesList = data.results  
-  return {
-    props: {
-      moviesList,
-    },
-  };
+  try {
+    const fetcher = await fetch(
+      "https://api.themoviedb.org/3/trending/all/day?api_key=e1c3af0d54d0c6b4b9d257363e6e136e"
+    );
+    const data = await fetcher.json();
+    const moviesList = data.results;
+    return {
+      props: {
+        moviesList,
+      },
+    };
+
+}
+   catch (error: any) {
+    console.log(error);
+
+    return {
+      props: {
+        error:
+          "Could not process Your request at the moment please check your internet connection or try again later",
+      },
+    };
+  }
 };

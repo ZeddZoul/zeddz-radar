@@ -7,34 +7,44 @@ import s from "./index.module.scss";
 import { useRouter } from "next/router";
 import { useState } from "react";
 interface Movies {
- moviesList: {
-   id: number,
-   title: string,
-   release_date: string,
-   first_air_date: string,
-   poster_path: string,
-  name: string
-}[]
+  moviesList: {
+    id: number;
+    title: string;
+    release_date: string;
+    first_air_date: string;
+    poster_path: string;
+    name: string;
+    error: string
+  }[];
+  error: string
+}
+
+export const getServerSideProps: GetServerSideProps = async ({ query }) => {
+  const { search } = query;
+  try {
+    const fetcher = await fetch(
+      `https://api.themoviedb.org/3/search/movie?api_key=e1c3af0d54d0c6b4b9d257363e6e136e&language=en-US&query=${search}&include_adult=false`
+    );
+    const data = await fetcher.json();
+    const moviesList = data.results;
+      return {
+        props: {
+          moviesList,
+        },
+      };
+  } catch (error: any) {
+    console.log(error);
+
+    return {
+      props: {
+        error:
+          "Could not process this page at the moment please check your internet connection and try again later",
+      },
+    };
+  }
 };
 
-export const getServerSideProps: GetServerSideProps = async ({query}) => {
-  const {search} = query
-  
-  const fetcher = await fetch(
-    `https://api.themoviedb.org/3/search/movie?api_key=e1c3af0d54d0c6b4b9d257363e6e136e&language=en-US&query=${search}&include_adult=false`
-  );
-  const data = await fetcher.json();
-  const moviesList = data.results  
-  return {
-    props: {
-      moviesList,
-    },
-  };
-};
-
-
-export default function Search({ moviesList }: Movies) {
-  const [myMoviesList, setMyMoviesList] = useState(moviesList);
+export default function Search({ moviesList, error }: Movies) {
   return (
     <>
       <Head>
@@ -51,9 +61,9 @@ export default function Search({ moviesList }: Movies) {
         <link rel="icon" href="/favicon.png" />
       </Head>
       <>
-        {/* <Nav /> */}
+        {error && <p className={s.error}>{error}</p>}
         <div className={s.main}>
-          {myMoviesList.map(
+          {moviesList?.map(
             (
               { id, name, title, release_date, poster_path, first_air_date },
               index
@@ -66,7 +76,9 @@ export default function Search({ moviesList }: Movies) {
                     width={200}
                     alt=""
                   />
-                  <p>Title: {title || name} {index}</p>
+                  <p>
+                    Title: {title || name} {index}
+                  </p>
                   <small>Release date: {release_date || first_air_date}</small>
                 </div>
               </Link>
@@ -77,4 +89,4 @@ export default function Search({ moviesList }: Movies) {
     </>
   );
 }
-Search.pageLayout = Nav
+Search.pageLayout = Nav;

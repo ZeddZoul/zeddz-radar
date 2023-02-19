@@ -5,6 +5,7 @@ import { useState, useEffect, SyntheticEvent } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import Head from "next/head";
+import { error } from "console";
 interface MovieType {
   id: number;
   title: string;
@@ -34,13 +35,22 @@ const Movie = () => {
   };
   useEffect(() => {
     const fetchMovie = async () => {
-      const data = await fetch(
-        `https://api.themoviedb.org/3/movie/${id}?api_key=e1c3af0d54d0c6b4b9d257363e6e136e&language=en-US`
-      );
-      const movieDetails = await data.json();
-      setMovie(movieDetails);
-      console.log(movieDetails);
-      
+   try {
+     const data = await fetch(
+       `https://api.themoviedb.org/3/movie/${id}?api_key=e1c3af0d54d0c6b4b9d257363e6e136e&language=en-US`
+     );
+     const movieDetails = await data.json();
+     setMovie(movieDetails);
+     console.log(movieDetails);
+   } catch (error: any) {
+
+     return {
+       props: {
+         error:
+           "Could not process this page at the moment please check your internet connection and try again later",
+       },
+     };
+   }
     };
     fetchMovie();
   }, [id]);
@@ -59,7 +69,7 @@ const Movie = () => {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.png" />
       </Head>
-      <div className={s.Movie}>
+ {   <div className={s.Movie}>
         <nav>
           {" "}
           <Link onClick={ back } href="/"> &larr; Back</Link>{" "}
@@ -96,7 +106,7 @@ const Movie = () => {
           
           </div>
         </div>
-      </div>
+      </div>}
     </>
   );
 };
