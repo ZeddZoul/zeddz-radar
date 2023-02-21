@@ -61,9 +61,9 @@ export default function Home({ moviesList, error }: Movies) {
                 <li>By Release date:</li>
                 <input type="checkbox" />
                 <ul className={s.sec}>
-                  <p onClick={() => setFilter("this week")}>This week</p>
-                  <p onClick={() => setFilter("this month")}>This month</p>
-                  <p onClick={() => setFilter("this year")}>This year</p>
+                  <p onClick={() => setFilter(1)}>This week</p>
+                  <p onClick={() => setFilter(30)}>This month</p>
+                  <p onClick={() => setFilter(365)}>This year</p>
                 </ul>
               </ul>
             </div>
@@ -71,8 +71,7 @@ export default function Home({ moviesList, error }: Movies) {
         )}
         <div className={s.main}>
           {moviesList?.filter((movie) =>
-              movie?.genre_ids
-                ?.includes(filter))
+              movie?.genre_ids?.includes(filter))
             .map(
               (
                 { id, name, title, release_date, poster_path, first_air_date },
