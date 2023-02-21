@@ -13,15 +13,13 @@ interface Movies {
     first_air_date: string;
     poster_path: string;
     name: string;
-    genres: {
-      id: number;
-      name: string;
-    }[];
+    genre_ids:number[];
   }[];
   error: string;
 }
 export default function Home({ moviesList, error }: Movies) {
-  const [filter, setFilter] = useState<string>("");
+  const [filter, setFilter] = useState<number>(12);
+
   return (
     <>
       <Head>
@@ -52,11 +50,11 @@ export default function Home({ moviesList, error }: Movies) {
                 <li>By Genre:</li>
                 <input type="checkbox" />
                 <ul>
-                  <p onClick={() => setFilter("Thriller")}>Thriller</p>
-                  <p onClick={() => setFilter("Mystery")}>Mystery</p>
-                  <p onClick={() => setFilter("Comedy")}>Comedy</p>
-                  <p onClick={() => setFilter("Action")}>Action</p>
-                  <p onClick={() => setFilter("Crime")}>Crime</p>
+                  <p onClick={() => setFilter(14)}>Fantasy</p>
+                  <p onClick={() => setFilter(35)}>Comedy</p>
+                  <p onClick={() => setFilter(28)}>Action</p>
+                  <p onClick={() => setFilter(12)}>Adventure</p>
+                  <p onClick={() => setFilter(878)}>SciFi</p>
                 </ul>
               </ul>
               <ul>
@@ -72,25 +70,30 @@ export default function Home({ moviesList, error }: Movies) {
           </div>
         )}
         <div className={s.main}>
-          {moviesList?.map(
-            (
-              { id, name, title, release_date, poster_path, first_air_date },
-              index
-            ) => (
-              <Link key={id} href={`/movies/${id}`}>
-                <div className={s.card}>
-                  <Image
-                    src={`https://image.tmdb.org/t/p/w500/${poster_path}`}
-                    height={250}
-                    width={200}
-                    alt=""
-                  />
-                  <p>Title: {title || name}</p>
-                  <small>Release date: {release_date || first_air_date}</small>
-                </div>
-              </Link>
-            )
-          )}
+          {moviesList?.filter((movie) =>
+              movie?.genre_ids
+                ?.includes(filter))
+            .map(
+              (
+                { id, name, title, release_date, poster_path, first_air_date },
+                index
+              ) => (
+                <Link key={id} href={`/movies/${id}`}>
+                  <div className={s.card}>
+                    <Image
+                      src={`https://image.tmdb.org/t/p/w500/${poster_path}`}
+                      height={250}
+                      width={200}
+                      alt=""
+                    />
+                    <p>Title: {title || name}</p>
+                    <small>
+                      Release date: {release_date || first_air_date}
+                    </small>
+                  </div>
+                </Link>
+              )
+            )}
         </div>
       </>
     </>
