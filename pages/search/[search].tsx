@@ -15,6 +15,7 @@ interface Movies {
     poster_path: string;
     name: string;
     error: string
+    genre_ids: number[] | any
   }[];
   error: string
 }
