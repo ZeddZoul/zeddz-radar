@@ -26,7 +26,7 @@ const Nav: FC = () => {
             value={inputValue}
             placeholder="Search"
           />
-          <button onClick={() => router.push(`/search/${inputValue}`)}> &rarr; </button>
+          <button onClick={() => inputValue && router.push(`/search/${inputValue}`)}> &rarr; </button>
           <div className={s.search_results}>{}</div>
         </span>
       </div>

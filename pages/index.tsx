@@ -13,12 +13,16 @@ interface Movies {
     first_air_date: string;
     poster_path: string;
     name: string;
-    genre_ids:number[];
+    genre_ids: number[] | any ;
   }[];
   error: string;
 }
+interface Filter {
+  id?: number;
+  name: string;
+}
 export default function Home({ moviesList, error }: Movies) {
-  const [filter, setFilter] = useState<number>(12);
+  const [filter, setFilter] = useState<Filter>({name: "None"});
 
   return (
     <>
@@ -44,55 +48,111 @@ export default function Home({ moviesList, error }: Movies) {
               <p>
                 {" "}
                 <span>Filter:</span>
-                <small> {filter}</small>
+                <small> {filter.name}</small>
               </p>
               <ul>
                 <li>By Genre:</li>
                 <input type="checkbox" />
                 <ul>
-                  <p onClick={() => setFilter(14)}>Fantasy</p>
-                  <p onClick={() => setFilter(35)}>Comedy</p>
-                  <p onClick={() => setFilter(28)}>Action</p>
-                  <p onClick={() => setFilter(12)}>Adventure</p>
-                  <p onClick={() => setFilter(878)}>SciFi</p>
+                  <p onClick={() => setFilter({ name: "None" })}>
+                    None
+                  </p>
+                  <p onClick={() => setFilter({ id: 14, name: "Fantasy" })}>
+                    Fantasy
+                  </p>
+                  <p onClick={() => setFilter({ id: 35, name: "Comedy" })}>
+                    Comedy
+                  </p>
+                  <p onClick={() => setFilter({ id: 28, name: "Comedy" })}>
+                    Action
+                  </p>
+                  <p onClick={() => setFilter({ id: 12, name: "Comedy" })}>
+                    Adventure
+                  </p>
+                  <p onClick={() => setFilter({ id: 878, name: "Comedy" })}>
+                    SciFi
+                  </p>
                 </ul>
               </ul>
               <ul>
                 <li>By Release date:</li>
                 <input type="checkbox" />
                 <ul className={s.sec}>
-                  <p onClick={() => setFilter(1)}>This week</p>
-                  <p onClick={() => setFilter(30)}>This month</p>
-                  <p onClick={() => setFilter(365)}>This year</p>
+                  <p onClick={() => setFilter({ id: 35, name: "Comedy" })}>
+                    This week
+                  </p>
+                  <p onClick={() => setFilter({ id: 35, name: "Comedy" })}>
+                    This month
+                  </p>
+                  <p onClick={() => setFilter({ id: 35, name: "Comedy" })}>
+                    This year
+                  </p>
                 </ul>
               </ul>
             </div>
           </div>
         )}
         <div className={s.main}>
-          {moviesList?.filter((movie) =>
-              movie?.genre_ids?.includes(filter))
-            .map(
-              (
-                { id, name, title, release_date, poster_path, first_air_date },
-                index
-              ) => (
-                <Link key={id} href={`/movies/${id}`}>
-                  <div className={s.card}>
-                    <Image
-                      src={`https://image.tmdb.org/t/p/w500/${poster_path}`}
-                      height={250}
-                      width={200}
-                      alt=""
-                    />
-                    <p>Title: {title || name}</p>
-                    <small>
-                      Release date: {release_date || first_air_date}
-                    </small>
-                  </div>
-                </Link>
-              )
-            )}
+          {filter.id
+            ? moviesList
+                ?.filter((movie) => movie?.genre_ids?.includes(filter.id))
+                .map(
+                  (
+                    {
+                      id,
+                      name,
+                      title,
+                      release_date,
+                      poster_path,
+                      first_air_date,
+                    },
+                    index
+                  ) => (
+                    <Link key={id} href={`/movies/${id}`}>
+                      <div className={s.card}>
+                        <Image
+                          src={`https://image.tmdb.org/t/p/w500/${poster_path}`}
+                          height={250}
+                          width={200}
+                          alt=""
+                        />
+                        <p>Title: {title || name}</p>
+                        <small>
+                          Release date: {release_date || first_air_date}
+                        </small>
+                      </div>
+                    </Link>
+                  )
+                )
+            : moviesList
+                .map(
+                  (
+                    {
+                      id,
+                      name,
+                      title,
+                      release_date,
+                      poster_path,
+                      first_air_date,
+                    },
+                    index
+                  ) => (
+                    <Link key={id} href={`/movies/${id}`}>
+                      <div className={s.card}>
+                        <Image
+                          src={`https://image.tmdb.org/t/p/w500/${poster_path}`}
+                          height={250}
+                          width={200}
+                          alt=""
+                        />
+                        <p>Title: {title || name}</p>
+                        <small>
+                          Release date: {release_date || first_air_date}
+                        </small>
+                      </div>
+                    </Link>
+                  )
+                )}
         </div>
       </>
     </>
